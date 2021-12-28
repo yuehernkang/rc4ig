@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "225049915120",
+    "project_id": "rc4ig-845a2",
+    "storage_bucket": "rc4ig-845a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225049915120:android:fb63f78f3074e0cd0ddc35",
+        "android_client_info": {
+          "package_name": "com.yuehern.rc4ig"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225049915120-675qo31m4kvs75gfkfggohfkmd6qmihe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5Hck0QqQ5v9k0bVMDA_0w7wLpXt_YuvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225049915120-675qo31m4kvs75gfkfggohfkmd6qmihe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
