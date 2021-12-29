@@ -21,11 +21,11 @@ class Event {
 
   Event.fromSnapshot(DocumentSnapshot? snapshot)
       : id = snapshot!.id,
-        title = snapshot!.get("title"),
-        description = snapshot!.get("description"),
-        timestamp = snapshot!.get("timestamp"),
-        ig = snapshot!.get("ig"),
-        imageUrl = snapshot!.get("imageurl"),
-        hosts = List.castFrom(snapshot!.get('hosts') as List ?? []),
-        attendees = List.castFrom(snapshot!.get('attendees') as List ?? []);
+        title = snapshot.get("title"),
+        description = snapshot.get("description"),
+        timestamp = snapshot.get("timestamp"),
+        ig = snapshot.get("ig"),
+        imageUrl = snapshot.get("imageurl"),
+        hosts = List.castFrom(snapshot.get('hosts') as List),
+        attendees = List.castFrom(snapshot.get('attendees') as List);
 }

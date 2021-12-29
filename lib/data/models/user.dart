@@ -12,6 +12,6 @@ class User {
 
   User.fromSnapshot(DocumentSnapshot? snapshot)
       : name = snapshot!.get('name'),
-        email = snapshot!.get('email'),
-        imageurl = snapshot!.get('imageurl');
+        email = snapshot.get('email'),
+        imageurl = snapshot.get('imageurl');
 }

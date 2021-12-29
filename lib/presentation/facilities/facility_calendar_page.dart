@@ -61,6 +61,80 @@ class _FacilitiesDetailPageState extends State<FacilitiesDetailPage> {
                 showDatePickerButton: true,
                 showNavigationArrow: true,
                 controller: _calendarController,
+                onTap: (cal) {
+                  if (cal.targetElement == CalendarElement.appointment ||
+                      cal.targetElement == CalendarElement.agenda) {
+                    final Meeting appointmentDetails = cal.appointments![0];
+                    String _startTimeText = DateFormat('hh:mm a')
+                        .format(appointmentDetails.from)
+                        .toString();
+                    String _endTimeText = DateFormat('hh:mm a')
+                        .format(appointmentDetails.to)
+                        .toString();
+
+                    Scaffold.of(context).showBottomSheet<void>(
+                      (BuildContext context) {
+                        return Container(
+                          height: 200,
+                          color: Colors.amber,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Start: "),
+                                          Text(_startTimeText)
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("End: "),
+                                          Text(_endTimeText)
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Created By: "),
+                                          Text("Hello")
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text("Additional Notes: "),
+                                          Text("Hello")
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  ElevatedButton(
+                                      child: const Text('Close BottomSheet'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      })
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
               );
             }
           },
