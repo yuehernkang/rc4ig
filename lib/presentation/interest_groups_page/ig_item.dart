@@ -28,28 +28,31 @@ class IgItemCard extends StatelessWidget {
       child: InkWell(
           onTap: onTap,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 160,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(16.0),
-                      topRight: Radius.circular(16.0)),
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl: ig.imageUrl,
-                    placeholder: (context, url) =>
-                        const BlurHash(hash: 'L19%hp0002Ng00-9?atl00?H=x^\$'),
+              Expanded(
+                child: SizedBox(
+                  height: 140,
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(16.0),
+                        topRight: Radius.circular(16.0)),
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: ig.imageUrl,
+                      placeholder: (context, url) =>
+                          const BlurHash(hash: 'L19%hp0002Ng00-9?atl00?H=x^\$'),
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 4,
+              SizedBox(
+                height: 8,
               ),
-              Center(
-                child: Text(ig.title.toString()),
-              )
+              Text(ig.title),
+              SizedBox(
+                height: 8,
+              ),
             ],
           )),
     );

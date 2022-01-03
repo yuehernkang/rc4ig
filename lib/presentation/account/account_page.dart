@@ -61,7 +61,7 @@ class AccountPage extends StatelessWidget {
                             child: AccountButtons(
                               title: "Sign Up",
                               onPressed: () =>
-                                  Navigator.pushNamed(context, loginPageRoute),
+                                  Navigator.pushNamed(context, signUpPageRoute),
                             ),
                           )
                         ],

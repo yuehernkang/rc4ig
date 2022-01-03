@@ -26,19 +26,20 @@ class LoginPage extends StatelessWidget {
           if (!snapshot.hasData) {
             return Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 100,
-                    child: CachedNetworkImage(
-                        imageUrl:
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6yFoGJAEN6FZSC28nl-3CjfahMZ98l0lYoW-bx_eyTMyEyjTO3NuwJg3J_3_cBbLtcqg&usqp=CAU"),
-                  ),
-                ),
-                const Expanded(
+                Expanded(
                   child: SignInScreen(
+                      headerBuilder: (context, constraints, _) {
+                        return Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Image.network(
+                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6yFoGJAEN6FZSC28nl-3CjfahMZ98l0lYoW-bx_eyTMyEyjTO3NuwJg3J_3_cBbLtcqg&usqp=CAU"),
+                          ),
+                        );
+                      },
                       showAuthActionSwitch: false,
-                      providerConfigs: [
+                      providerConfigs: const [
                         EmailProviderConfiguration(),
                       ]),
                 ),

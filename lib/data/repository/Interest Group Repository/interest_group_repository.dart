@@ -35,11 +35,20 @@ class InterestGroupRepository {
     return interestGroupAPI.getAttendees(docId);
   }
 
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getAttendeesStream(
+      String docId) {
+    return interestGroupAPI.getAttendeesStream(docId);
+  }
+
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserObject(String uid) {
     return interestGroupAPI.getUserObject(uid);
   }
 
-  Future<void> joinEvent(String eventDocId, String uid) {
+  Future<void> joinEvent(String eventDocId, String? uid) {
     return interestGroupAPI.joinEvent(eventDocId, uid);
+  }
+
+  Future<void> leaveEvent(String eventDocId, String? uid) {
+    return interestGroupAPI.leaveEvent(eventDocId, uid);
   }
 }

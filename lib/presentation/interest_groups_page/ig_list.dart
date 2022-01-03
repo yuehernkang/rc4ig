@@ -28,40 +28,25 @@ class InterestGroupsList extends StatelessWidget {
           } else {
             return Column(
               children: [
-                const TextField(),
+                // const TextField(),
                 Expanded(
                     child: ReusableGridView(
                   widget: snapshot.data!.docs
                       .asMap()
                       .map((i, data) => MapEntry(
-                          i,
-                          IgItemCard(
-                              ig: InterestGroup.fromSnapshot(data),
-                              onTap: () {
-                                Navigator.pushNamed(context, igDetailPage,
-                                    arguments:
-                                        InterestGroup.fromSnapshot(data));
-                              },
-                              index: i)))
+                            i,
+                            IgItemCard(
+                                ig: InterestGroup.fromSnapshot(data),
+                                onTap: () {
+                                  Navigator.pushNamed(context, igDetailPage,
+                                      arguments:
+                                          InterestGroup.fromSnapshot(data));
+                                },
+                                index: i),
+                          ))
                       .values
                       .toList(),
-                )
-                    // GridView(
-                    //   scrollDirection: Axis.vertical,
-                    //   gridDelegate:
-                    //       const SliverGridDelegateWithFixedCrossAxisCount(
-                    //           crossAxisCount: 2),
-                    // children: snapshot.data!.docs
-                    //     .asMap()
-                    //     .map((i, data) => MapEntry(
-                    //         i,
-                    //         IgItemCard(
-                    //             ig: InterestGroup.fromSnapshot(data),
-                    //             index: i)))
-                    //     .values
-                    //     .toList(),
-                    // ),
-                    ),
+                )),
               ],
             );
           }

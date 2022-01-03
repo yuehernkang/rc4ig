@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rc4ig/presentation/account/sign_up_page.dart';
 
 import 'constants.dart';
 import 'data/models/interest_group.dart';
@@ -28,6 +29,8 @@ class RC4IGRouter {
         return MaterialPageRoute(builder: (_) => EventPeopleList(users: users));
       case loginPageRoute:
         return MaterialPageRoute(builder: (_) => const LoginPage());
+      case signUpPageRoute:
+        return MaterialPageRoute(builder: (_) => const SignUpPage());
       case igDetailPage:
         var ig = settings.arguments as InterestGroup;
         return MaterialPageRoute(

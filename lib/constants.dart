@@ -2,6 +2,7 @@ const String homeRoute = '/';
 const String eventDetailRoute = '/eventDetail';
 const String eventPeopleListRoute = '/eventPeopleList';
 const String loginPageRoute = '/loginPage';
+const String signUpPageRoute = '/signUpPage';
 const String igDetailPage = '/igDetailPage';
 const String igDetailEventList = '/igDetailEventList';
 const String facilitiesPage = '/facilitiesPage';

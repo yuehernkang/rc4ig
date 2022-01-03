@@ -15,7 +15,9 @@ class EventHostAvatar extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 25,
-            backgroundImage: CachedNetworkImageProvider(user.imageurl),
+            backgroundImage: CachedNetworkImageProvider(
+              user.imageurl,
+            ),
           ),
           Text(
             user.name,

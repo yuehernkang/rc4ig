@@ -15,18 +15,11 @@ class EventPeopleWidget extends StatelessWidget {
 
   EventPeopleWidget({Key? key, required this.title, required this.docId})
       : super(key: key);
-  final items = List<User>.generate(
-      1000,
-      (i) => User(
-          name: i.toString(),
-          email: "yuehernkang@hotmail.com",
-          imageurl:
-              "https://upload.wikimedia.org/wikipedia/en/d/da/Matt_LeBlanc_as_Joey_Tribbiani.jpg"));
-
   @override
   Widget build(BuildContext context) {
-    final InterestGroupRepository interestGroupRepository =
+    final InterestGroupRepository igrepo =
         RepositoryProvider.of<InterestGroupRepository>(context);
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(16.0, 0, 8.0, 0),
       child: Column(
@@ -40,8 +33,8 @@ class EventPeopleWidget extends StatelessWidget {
               InkWell(
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, eventPeopleListRoute,
-                        arguments: items);
+                    // Navigator.pushNamed(context, eventPeopleListRoute,
+                    //     arguments: items);
                   },
                   child: const Text(
                     "See All",
@@ -54,8 +47,8 @@ class EventPeopleWidget extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 100,
-            child: FutureBuilder<DocumentSnapshot>(
-              future: interestGroupRepository.getAttendees(docId),
+            child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              stream: igrepo.getAttendeesStream(docId),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return const Center(
@@ -68,9 +61,10 @@ class EventPeopleWidget extends StatelessWidget {
                   itemCount: Event.fromSnapshot(snapshot.data).attendees.length,
                   itemBuilder: (context, index) {
                     return FutureBuilder<DocumentSnapshot>(
-                      future: interestGroupRepository.getUserObject(
+                      future: igrepo.getUserObject(
                           Event.fromSnapshot(snapshot.data).attendees[index]),
                       builder: (context, snapshot) {
+                        print(snapshot.data);
                         if (snapshot.hasData) {
                           return EventHostAvatar(
                               user: User.fromSnapshot(snapshot.data));

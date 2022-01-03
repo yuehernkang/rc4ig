@@ -38,13 +38,24 @@ class RC4IGAPI {
     return firestore.collection('events').doc(docId).get();
   }
 
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getAttendeesStream(
+      String docId) {
+    return firestore.collection('events').doc(docId).snapshots();
+  }
+
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserObject(String uid) {
     return firestore.collection('users').doc(uid).get();
   }
 
-  Future<void> joinEvent(String eventDocId, String uid) {
+  Future<void> joinEvent(String eventDocId, String? uid) {
     return firestore.collection('events').doc(eventDocId).update({
       'attendees': FieldValue.arrayUnion([uid])
+    });
+  }
+
+  Future<void> leaveEvent(String eventDocId, String? uid) {
+    return firestore.collection('events').doc(eventDocId).update({
+      'attendees': FieldValue.arrayRemove([uid])
     });
   }
 }

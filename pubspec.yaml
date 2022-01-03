@@ -21,6 +21,7 @@ dependencies:
   flutter_blurhash: ^0.6.0
   flutter_form_builder: ^7.0.0
   flutter_image_slideshow: ^0.1.2
+  flutter_platform_widgets: ^1.12.1
   flutterfire_ui: ^0.3.0
   form_builder_validators: ^7.2.0
   google_fonts: ^2.1.0
