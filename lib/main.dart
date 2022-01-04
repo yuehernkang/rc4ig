@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rc4ig/presentation/home_page/home_page.dart';
+import 'package:rc4ig/presentation/home_page/rc4_home_page.dart';
 import 'package:rc4ig/theme.dart';
 
 import 'blocs/auth_bloc/authentication_bloc.dart';
@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'RC4 App!',
       theme: RC4Theme.lightTheme,
       onGenerateRoute: RC4IGRouter.generateRoute,
       initialRoute: homeRoute,

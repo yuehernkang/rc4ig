@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rc4ig/data/models/social_post.dart';
 
 import '../../../constants.dart';
 import '../../models/venue.dart';
@@ -11,7 +12,11 @@ class RC4IGAPI {
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getEvents() {
-    return firestore.collection('events').orderBy('timestamp').get();
+    return firestore
+        .collection('events')
+        .where('timestamp', isGreaterThan: Timestamp.now())
+        .orderBy('timestamp')
+        .get();
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getEventDetails(String docId) {
@@ -23,7 +28,6 @@ class RC4IGAPI {
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getFacilitySchedule(Venue names) {
-    print(names.toString().split('.').last);
     return firestore
         .collection('facilities_booking')
         .where('venue', isEqualTo: names.venueName.name)
@@ -47,6 +51,7 @@ class RC4IGAPI {
     return firestore.collection('users').doc(uid).get();
   }
 
+//-----------------------EVENT PAGE-----------------------
   Future<void> joinEvent(String eventDocId, String? uid) {
     return firestore.collection('events').doc(eventDocId).update({
       'attendees': FieldValue.arrayUnion([uid])
@@ -57,5 +62,14 @@ class RC4IGAPI {
     return firestore.collection('events').doc(eventDocId).update({
       'attendees': FieldValue.arrayRemove([uid])
     });
+  }
+
+  //-----------------------HOME PAGE (SOCIAL) -----------------------
+  Query<Map<String, dynamic>> getSocialPosts() {
+    return firestore.collection('social').orderBy('timestamp');
+  }
+
+  Future<DocumentReference<Map<String, dynamic>>> addNewSocialPost(Post post) {
+    return firestore.collection('social').add(post.toJson());
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rc4ig/data/models/social_post.dart';
 import '../../../constants.dart';
 import '../../models/venue.dart';
 import 'interest_group_api.dart';
@@ -50,5 +51,14 @@ class InterestGroupRepository {
 
   Future<void> leaveEvent(String eventDocId, String? uid) {
     return interestGroupAPI.leaveEvent(eventDocId, uid);
+  }
+
+  //-----------------------HOME PAGE (SOCIAL) -----------------------
+  Query<Map<String, dynamic>> getSocialPosts() {
+    return interestGroupAPI.getSocialPosts();
+  }
+
+  Future<DocumentReference<Map<String, dynamic>>> addNewSocialPost(Post post) {
+    return interestGroupAPI.addNewSocialPost(post);
   }
 }
