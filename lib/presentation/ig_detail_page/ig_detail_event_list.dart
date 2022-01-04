@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../constants.dart';
 import '../../data/models/event.dart';
 import '../../data/repository/Interest%20Group%20Repository/interest_group_repository.dart';
 import '../events_page/event_card.dart';
@@ -51,7 +52,7 @@ class EventListShimmer extends StatelessWidget {
       width: 200,
       height: 140,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: allPadding8,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -4,6 +4,7 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutterfire_ui/auth.dart';
 
 import '../../constants.dart';
+import 'profile_page/profile_page.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class AccountPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: allPadding8,
                       child: Column(
                         children: [
                           SizedBox(
@@ -73,7 +74,7 @@ class AccountPage extends StatelessWidget {
             );
           }
           return const Center(
-            child: SignOutButton(),
+            child: ProfilePage(),
           );
         },
       ),

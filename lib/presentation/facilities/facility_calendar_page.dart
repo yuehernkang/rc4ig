@@ -6,6 +6,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../../constants.dart';
 import '../../data/data_sources/meeting_data_source.dart';
 import '../../data/models/meeting.dart';
 import '../../data/models/venue.dart';
@@ -79,7 +80,7 @@ class _FacilitiesDetailPageState extends State<FacilitiesDetailPage> {
                           color: Colors.amber,
                           child: Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: allPadding8,
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[

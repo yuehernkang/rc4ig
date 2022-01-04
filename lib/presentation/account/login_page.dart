@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../constants.dart';
 import '../../data/repository/Authentication%20Repository/authentication_api.dart';
 import '../../data/repository/Authentication%20Repository/authentication_repository.dart';
 import 'account_page.dart';
@@ -83,7 +84,7 @@ class OldLoginForm extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: allPadding8,
           child: Column(
             children: [
               SizedBox(

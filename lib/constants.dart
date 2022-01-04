@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 const String homeRoute = '/';
 const String eventDetailRoute = '/eventDetail';
 const String eventPeopleListRoute = '/eventPeopleList';
@@ -59,3 +61,5 @@ extension EnumActionExtension on VenueNames {
     }
   }
 }
+
+const allPadding8 = EdgeInsets.all(8.0);
