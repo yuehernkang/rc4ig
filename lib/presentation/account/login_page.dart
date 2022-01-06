@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rc4ig/blocs/auth_bloc/authentication_bloc.dart';
 
 import '../../constants.dart';
 import '../../data/repository/Authentication%20Repository/authentication_api.dart';
@@ -28,21 +29,22 @@ class LoginPage extends StatelessWidget {
             return Column(
               children: [
                 Expanded(
-                  child: SignInScreen(
-                      headerBuilder: (context, constraints, _) {
-                        return Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Image.network(
-                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6yFoGJAEN6FZSC28nl-3CjfahMZ98l0lYoW-bx_eyTMyEyjTO3NuwJg3J_3_cBbLtcqg&usqp=CAU"),
-                          ),
-                        );
-                      },
-                      showAuthActionSwitch: false,
-                      providerConfigs: const [
-                        EmailProviderConfiguration(),
-                      ]),
+                  child: CustomEmailSignInForm(),
+                  // child: SignInScreen(
+                  //     headerBuilder: (context, constraints, _) {
+                  //       return Padding(
+                  //         padding: const EdgeInsets.all(20),
+                  //         child: AspectRatio(
+                  //           aspectRatio: 1,
+                  //           child: Image.network(
+                  //               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6yFoGJAEN6FZSC28nl-3CjfahMZ98l0lYoW-bx_eyTMyEyjTO3NuwJg3J_3_cBbLtcqg&usqp=CAU"),
+                  //         ),
+                  //       );
+                  //     },
+                  //     showAuthActionSwitch: false,
+                  //     providerConfigs: const [
+                  //       EmailProviderConfiguration(),
+                  //     ]),
                 ),
               ],
             );
@@ -52,9 +54,61 @@ class LoginPage extends StatelessWidget {
           );
         },
       ),
-      // body: OldLoginForm(
-      //     emailController: emailController,
-      //     passwordController: passwordController),
+    );
+  }
+}
+
+class CustomEmailSignInForm extends StatefulWidget {
+  CustomEmailSignInForm({Key? key}) : super(key: key);
+
+  @override
+  State<CustomEmailSignInForm> createState() => _CustomEmailSignInFormState();
+}
+
+class _CustomEmailSignInFormState extends State<CustomEmailSignInForm> {
+  final emailCtrl = TextEditingController();
+
+  final passwordCtrl = TextEditingController();
+  String text = "";
+
+  @override
+  Widget build(BuildContext context) {
+    final AuthenticationBloc authBloc =
+        BlocProvider.of<AuthenticationBloc>(context);
+    return AuthFlowBuilder<EmailFlowController>(
+      builder: (context, state, controller, _) {
+        if (state is AwaitingEmailAndPassword) {
+          return Column(
+            children: [
+              Text(text),
+              TextField(controller: emailCtrl),
+              TextField(controller: passwordCtrl),
+              ElevatedButton(
+                onPressed: () {
+                  controller.setEmailAndPassword(
+                    emailCtrl.text,
+                    passwordCtrl.text,
+                  );
+                },
+                child: const Text('Sign in'),
+              ),
+            ],
+          );
+        } else if (state is SigningIn) {
+          return Center(child: CircularProgressIndicator());
+        } else if (state is AuthFailed) {
+          authBloc.add()
+          setState(() {
+            text = state.exception.toString();
+          });
+          // FlutterFireUIWidget that shows a human-readable error message.
+          // return ErrorText(exception: state.exception);
+        } else if (state is SignedIn) {
+          print("SIGNED IN");
+        }
+
+        return CircularProgressIndicator();
+      },
     );
   }
 }

@@ -1,20 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:date_time_format/date_time_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterfire_ui/firestore.dart';
+import 'package:rc4ig/blocs/auth_bloc/authentication_bloc.dart';
 import 'package:rc4ig/data/models/social_post.dart';
+import 'package:rc4ig/data/models/user.dart' as rc4_user;
 import 'package:rc4ig/data/repository/Interest%20Group%20Repository/interest_group_repository.dart';
+import 'package:rc4ig/presentation/home_page/new_post.dart';
 
 import '../../constants.dart';
 
 class RC4HomePage extends StatelessWidget {
   const RC4HomePage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final InterestGroupRepository igrepo =
-        RepositoryProvider.of<InterestGroupRepository>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Page"),
@@ -50,6 +52,8 @@ class HomePageCreatePostSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double topPadding = MediaQuery.of(context).padding.top;
+
     return Padding(
       padding: allPadding8,
       child: Row(
@@ -62,7 +66,17 @@ class HomePageCreatePostSection extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                print("hello");
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).padding.top),
+                      child: HomePageNewPost(),
+                    );
+                  },
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -129,10 +143,74 @@ class HomePageSocialFeed extends StatelessWidget {
       pageSize: 20,
       query: igrepo.getSocialPosts(),
       itemBuilder: (context, snapshot) {
-        Map<String, dynamic> user = snapshot.data();
-
-        return Text('User name is ${user['content']}');
+        Post post = Post.fromSnapshot(snapshot);
+        return SocialFeedPostItem(
+          post: post,
+        );
       },
+    );
+  }
+}
+
+class SocialFeedPostItem extends StatelessWidget {
+  final Post post;
+  const SocialFeedPostItem({Key? key, required this.post}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final InterestGroupRepository igrepo =
+        RepositoryProvider.of<InterestGroupRepository>(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        FutureBuilder<DocumentSnapshot>(
+          future: igrepo.getUserObject(post.postedBy),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              rc4_user.User user = rc4_user.User.fromSnapshot(snapshot.data);
+
+              return Row(
+                children: [
+                  Padding(
+                    padding: allPadding8,
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage: CachedNetworkImageProvider(
+                        user.imageurl,
+                      ),
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(user.name),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        DateTimeFormat.relative(post.timestamp) + " ago",
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    ],
+                  )
+                ],
+              );
+            }
+            return CircularProgressIndicator();
+          },
+        ),
+        Padding(
+          padding: allPadding8,
+          child: Text(
+            post.content,
+          ),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Divider()
+      ],
     );
   }
 }
